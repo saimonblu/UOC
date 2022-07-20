@@ -21,3 +21,99 @@ li a {
 li a:hover {
     background-color: #111;
 }
+
+.cerca {
+    width: 18.4%;
+    font-size: 15px;
+    margin-top: 9px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    float: right;
+    margin-right: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card {
+    margin-top: 15px;
+    background-color: rgb(135, 130, 202);
+    color: white;
+    padding: 1rem;
+    height: 14rem;
+    border-radius: 20px;
+    box-shadow: 20px 20px 50px 10px rgb(192, 207, 255) inset;
+}
+
+.card_sola {
+    margin-top: 15px;
+    background-color: rgb(135, 130, 202);
+    color: white;
+    padding: 1rem;
+    height: 24rem;
+    border-radius: 20px;
+    box-shadow: 20px 20px 50px 10px rgb(192, 207, 255) inset;
+}
+
+.cards {
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+
+.titol {
+    font-size: 30px;
+    text-align: center;
+}
+
+.img_carta {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img_carta_sola {
+    display: inline-block;
+    margin-left: 10%;
+    margin-right: auto;
+}
+
+.footer {
+    margin-left: 10px;
+}
+
+.footer_sola {
+    margin-left: 10px;
+    margin-top: 12%;
+}
+
+.center {
+    text-align: center;
+    border: 0px solid rgb(135, 130, 202);
+    width: 200px;
+    height: 30px;
+    padding: 3px;
+    margin-top: 2%;
+    margin-left: 7%;
+    border-radius: 12px;
+    background: rgb(102, 117, 193);
+    background: linear-gradient(357deg, rgb(135, 130, 202) 0%, rgb(192, 207, 255) 100%);
+}
+
+.center:hover {
+    cursor: pointer;
+    background-color: rgb(104, 99, 156);
+    color: white;
+    background: linear-gradient(180deg, rgb(135, 130, 202) 0%, rgb(192, 207, 255) 100%);
+}
+
+@media (min-width: 600px) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
