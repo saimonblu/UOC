@@ -20,10 +20,10 @@ function inicia() {
                         defensa: data.stats[2].base_stat
                     }
                     document.getElementById("cartes" + i).innerHTML =
-                        "<div class='card'>" +
+                        "<div class='card' id=id_" + data.id + ">" +
                         "<div id='poke" + i + "' class='titol'>" + carta.name.charAt(0).toUpperCase() + carta.name.slice(1) + "</div>" +
                         "<img class='img_carta' src='" + carta.img_davant + "' width='130' height='130'>" +
-                        "<span class='idPokemon" + i + "' id=id_" + data.id + " ></span>" +
+                        "<span class='idPokemon" + i + "' id=idPokemon" + data.id + " ></span>" +
                         "<div class='footer'>" +
                         "<div><b>Atac</b> " + carta.atac + "</div>" +
                         "<div><b>Defensa</b> " + carta.defensa + "</div>" +
@@ -83,32 +83,17 @@ function pokeInfo(id) {
 
 function buscarPokemon() {
     var nomCerca = document.getElementById("cerca").value;
-    console.log(nomCerca)
-    let llistaPokemon = []
 
     for (let i = 0; i < 10; i++) {
         let pokemon = document.getElementById("poke" + i + "").textContent;
-        let idPokemon = document.getElementsByClassName("idPokemon" + i + "")[0].id.substring(3);
-        llistaPokemon.push({ id: idPokemon, nom: pokemon })
-            //console.log(pokemon)
-            //console.log(nomCerca.search(/pokemon/i))
-
-        /*if (nomCerca == pokemon.toLowerCase()) {
-            console.log(idPokemon)
-            console.log("He trobat coincidencia")
-        }*/
-    }
-
-    llistaPokemon.forEach(k => {
-        let coincidencia = k.nom.includes(nomCerca);
-        if (coincidencia) {
-            console.log(k.nom)
-                //console.log(pokemon.search("/" + k.nom + "/"))
+        let idPokemon = document.getElementsByClassName("idPokemon" + i + "")[0].id.substring(9);
+        if (pokemon.toLowerCase().indexOf(nomCerca) > -1) {
+            let carta = document.getElementById("id_" + idPokemon + "")
+            document.getElementById("id_" + idPokemon + "").style.display = ""
+        } else {
+            document.getElementById("id_" + idPokemon + "").style.display = "none"
         }
-    })
-
-    //console.log(llistaPokemon)
-
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
