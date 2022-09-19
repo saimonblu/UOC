@@ -2,12 +2,42 @@ function inicia() {
 
     var idPokemon = [];
 
-    var params = new URLSearchParams(document.location.search);
-    var id = params.get("pokeID");
+    const params = new URLSearchParams(document.location.search);
 
-    for (let i = 0; i < 10; i++) {
-        idPokemon.push(getRandomInt(151))
-        fetch('https://pokeapi.co/api/v2/pokemon/' + getRandomInt(151) + '/')
+    const id_atac = params.get("poke_atac");
+    const id_defensa = params.get("poke_defensa");
+
+    if (!id_atac) {
+        for (let i = 0; i < 10; i++) {
+            idPokemon.push(getRandomInt(151))
+            fetch('https://pokeapi.co/api/v2/pokemon/' + getRandomInt(151) + '/')
+                .then(response => response.json())
+                .then(data => {
+                    carta = {
+                        name: data.name,
+                        img_davant: data.sprites.front_default,
+                        img_post: data.sprites.back_default,
+                        atac: data.stats[1].base_stat,
+                        defensa: data.stats[2].base_stat
+                    }
+                    document.getElementById("cartes" + i).innerHTML =
+                        "<div class='card cursor_oculta'onclick='" + 'seleccionaCarta("' + data.id + '")' + "'>" +
+                        "<div class='carta_oculta' id=id_" + data.id + " style='display: none;'>" +
+                        "<div id='poke" + i + "' class='titol'>" + carta.name.charAt(0).toUpperCase() + carta.name.slice(1) + "</div>" +
+                        "<img class='img_carta' src='" + carta.img_davant + "' width='130' height='130'>" +
+                        "<span class='idPokemon" + i + "' id=idPokemon" + data.id + "></span>" +
+                        "<div class='footer'>" +
+                        "<div><b>Atac</b> " + carta.atac + "</div>" +
+                        "<div><b>Defensa</b> " + carta.defensa + "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>"
+                })
+        }
+    } else {
+
+        // Si té ID la URL
+        fetch('https://pokeapi.co/api/v2/pokemon/' + id_atac + '/')
             .then(response => response.json())
             .then(data => {
                 carta = {
@@ -15,20 +45,39 @@ function inicia() {
                     img_davant: data.sprites.front_default,
                     img_post: data.sprites.back_default,
                     atac: data.stats[1].base_stat,
-                    defensa: data.stats[2].base_stat
+                    defensa: data.stats[2].base_stat,
+                    tipus: [],
+                    alsada: data.height,
+                    amplada: data.weight
                 }
-                document.getElementById("cartes" + i).innerHTML =
-                    "<div class='card cursor_oculta'onclick='" + 'seleccionaCarta("' + data.id + '")' + "'>" +
-                    "<div class='carta_oculta' id=id_" + data.id + " style='display: none;'>" +
-                    "<div id='poke" + i + "' class='titol'>" + carta.name.charAt(0).toUpperCase() + carta.name.slice(1) + "</div>" +
-                    "<img class='img_carta' src='" + carta.img_davant + "' width='130' height='130'>" +
-                    "<span class='idPokemon" + i + "' id=idPokemon" + data.id + "></span>" +
-                    "<div class='footer'>" +
-                    "<div><b>Atac</b> " + carta.atac + "</div>" +
-                    "<div><b>Defensa</b> " + carta.defensa + "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>"
+                fetch('https://pokeapi.co/api/v2/pokemon/' + id_defensa + '/')
+                    .then(response => response.json())
+                    .then(data => {
+                        carta_defensa = {
+                            name: data.name,
+                            img_davant: data.sprites.front_default,
+                            img_post: data.sprites.back_default,
+                            atac: data.stats[1].base_stat,
+                            defensa: data.stats[2].base_stat,
+                            tipus: [],
+                            alsada: data.height,
+                            amplada: data.weight
+                        }
+
+                        document.getElementById("menu").style.display = "none"
+                        document.getElementById("cardGroup").classList.remove("cards")
+                        document.getElementById("carta_combat").innerHTML =
+                            "<div class='card_sola'>" +
+                            "<div class='titol'><b>" + carta.name.charAt(0).toUpperCase() + carta.name.slice(1) + "</b> ataca <br>i guanya a <b>" + carta_defensa.name.charAt(0).toUpperCase() + carta_defensa.name.slice(1) + "</b></div>" +
+                            "<img class='img_carta_sola' src='" + carta.img_davant + "' width='130' height='130'>" +
+                            "<img class='img_carta_sola' src='" + carta_defensa.img_davant + "' width='130' height='130'>" +
+                            "<div class='footer_sola'>" +
+                            "<h3><b>Atac " + carta.name.charAt(0).toUpperCase() + carta.name.slice(1) + " </b>= " + carta.atac + "</h3>" +
+                            "<h3><b>Defensa " + carta_defensa.name.charAt(0).toUpperCase() + carta_defensa.name.slice(1) + " </b>= " + carta_defensa.defensa + "</h3>" +
+                            "</div>"
+                    })
+
+
             })
     }
 }
@@ -63,14 +112,37 @@ function seleccionaCarta(id) {
     }
 
     if (seleccio.length == 2) {
-        combatCartes(seleccio);
+        combatCartes(seleccio, id);
     }
     seleccio = [];
 }
 
-function combatCartes(sel) {
-    console.log(sel.length)
-    console.log(sel)
+function combatCartes(sel, id) {
+
+    var atacant = {};
+    var defensor = {};
+    fetch('https://pokeapi.co/api/v2/pokemon/' + sel[1] + '/')
+        .then(response => response.json())
+        .then(data => {
+            atacant.nom = data.name;
+            atacant.id = sel[1];
+            atacant.img = data.sprites.front_default;
+            atacant.atac = data.stats[1].base_stat;
+            fetch('https://pokeapi.co/api/v2/pokemon/' + id + '/')
+                .then(response => response.json())
+                .then(data => {
+                    defensor.nom = data.name;
+                    defensor.id = id
+                    defensor.img = data.sprites.front_default;
+                    defensor.defensa = data.stats[2].base_stat;
+                    if (parseInt(atacant.atac) > parseInt(defensor.defensa)) {
+                        window.open('combat.html?poke_atac=' + sel[1] + '&poke_defensa=' + id, 'Nombre de la ventana', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=400,height=450,left = 450,top = 175');
+                    }
+                    if (parseInt(atacant.atac) < parseInt(defensor.defensa)) {
+                        window.open('combat.html?poke_atac=' + id + '&poke_defensa=' + sel[1], 'Nombre de la ventana', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=400,height=450,left = 450,top = 175');
+                    }
+                })
+        })
 }
 
 function esborraCartes(sel) {
