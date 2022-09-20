@@ -155,6 +155,17 @@ function esborraCartes(sel) {
 
 }
 
+function canviTema(t) {
+
+    if (t == 0) {
+        document.querySelector("link[href='estils.css']").href = "estils_fosc.css";
+    }
+
+    if (t == 1) {
+        document.querySelector("link[href='estils_fosc.css']").href = "estils.css";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
     inicia()
 });

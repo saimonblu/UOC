@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel=StyleSheet href="estils.css" type="text/css">
+    <link rel=StyleSheet id="estils" href="estils.css" type="text/css">
     <title>Pokédex | Pokemon</title>
 </head>
 
@@ -14,6 +14,10 @@
     <ul id="menu">
         <li><a href="index.html">Inici</a></li>
         <li><a href="combat.html">Combat</a></li>
+        <span class="tema">
+            <li><input class="radio" type="radio" id="clar" name="tema" value="1" checked onclick="canviTema(1)"><label for="huey">Clar</label></li>
+            <li><input class="radio" type="radio" id="fosc" name="tema" value="0" onclick="canviTema(0)"><label for="huey">Fosc</label></li>
+        </span>
         <input type="search" id="cerca" class="cerca" onkeyup="buscarPokemon()" placeholder="Buscar...">
     </ul>
 
