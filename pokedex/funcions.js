@@ -65,6 +65,8 @@ function inicia() {
                     "<div><b>Alçada</b> " + carta.alsada + "</div>" +
                     "<div><b>Amplada</b> " + carta.amplada + "</div>" +
                     "</div>"
+
+
             })
     }
 }
@@ -74,6 +76,7 @@ function getRandomInt(num) {
 }
 
 function pokeInfo(id) {
+
     fetch('https://pokeapi.co/api/v2/pokemon/' + id + '/')
         .then(response => response.json())
         .then(data => {
@@ -93,6 +96,17 @@ function buscarPokemon() {
         } else {
             document.getElementById("id_" + idPokemon + "").style.display = "none"
         }
+    }
+}
+
+function canviTema(t) {
+
+    if (t == 0) {
+        document.querySelector("link[href='estils.css']").href = "estils_fosc.css";
+    }
+
+    if (t == 1) {
+        document.querySelector("link[href='estils_fosc.css']").href = "estils.css";
     }
 }
 
