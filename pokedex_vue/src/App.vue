@@ -21,11 +21,21 @@
       </div>
     </nav>
 
-  <div>
+  <div v-if="hiHaDadesInici">
     <div class="container-fluid">
-      <div class="row">
-      <div class="col-md-3" v-for="n in numPokemon" v-bind:key="n">
-        <carta class=""></carta>
+      <div class="row col d-flex justify-content-center">
+      <div class="col-md-3 " style="width:250px" v-for="n in infoPokemon" v-bind:key="n.posicio">
+        <carta ref="cartaIndividual" :pokemon="n"></carta>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="hiHaDadesCombat">
+    <div class="container-fluid">
+      <div class="row col d-flex justify-content-center">
+      <div class="col-md-3 " style="width:250px" v-for="n in infoPokemon" v-bind:key="n.posicio">
+        <carta ref="cartaIndividual" :pokemon="n"></carta>
       </div>
       </div>
     </div>
@@ -46,28 +56,79 @@
       carta
     },
 
+    created() {
+      this.inici()
+    },
+
+    mounted () {
+
+    },
+
     data: () => {
       return {
         cerca: "",
-        numPokemon: [1,2,3,4,5,6,7,8]
+        numPokemon: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        arrayUnic: [],
+        infoPokemon: {},
+        hiHaDadesInici: false,
+        hiHaDadesCombat: false
       }
     },
 
     methods: {
-      inici () {
-        console.log("Hola!")
-        axios.get('https://pokeapi.co/api/v2/pokemon/'+ parseInt(Math.random()*(0-151)+151))
-        .then(response => (
-          console.log(response.data))
-        )
+      async inici () {
+        let that = this
+        that.infoPokemon = {}
+        for(let i = 0; i < this.numPokemon.length; i++) {
+          await axios.get('https://pokeapi.co/api/v2/pokemon/'+ parseInt(Math.random()*(0-151)+151))
+          .then(response => {
+            let pokemon = {
+              posicio: i,
+              id: response.data.id,
+              name: response.data.name,
+              img_davant: response.data.sprites.front_default,
+              img_post: response.data.sprites.back_default,
+              atac: response.data.stats[1].base_stat,
+              defensa: response.data.stats[2].base_stat,
+              tipus: response.data.types[0].type.name,
+              alsada: response.data.height,
+              amplada: response.data.weight
+            }
+            that.infoPokemon[i] = pokemon
+          })          
+        }
+        that.hiHaDadesInici = true
+        that.hiHaDadesCombat = false
       },
 
-      carregaCombat () {
-        console.log("Carrega combat!")
+      async carregaCombat () {
+        let that = this
+        that.infoPokemon = {}
+        for(let i = 0; i < this.numPokemon.length; i++) {
+          await axios.get('https://pokeapi.co/api/v2/pokemon/'+ parseInt(Math.random()*(0-151)+151))
+          .then(response => {
+            let pokemon = {
+              posicio: i,
+              id: response.data.id,
+              name: response.data.name,
+              img_davant: response.data.sprites.front_default,
+              img_post: response.data.sprites.back_default,
+              atac: response.data.stats[1].base_stat,
+              defensa: response.data.stats[2].base_stat,
+              tipus: response.data.types[0].type.name,
+              alsada: response.data.height,
+              amplada: response.data.weight
+            }
+            that.infoPokemon[i] = pokemon
+          })          
+        }
+        that.hiHaDadesInici = false
+        that.hiHaDadesCombat = true
       },
 
       busca () {
         console.log(this.cerca)
+        //this.$refs.cartaIndividual.buscar(this.cerca)
       }
     },
 
