@@ -35,7 +35,7 @@
     <div class="container-fluid">
       <div class="row col d-flex justify-content-center">
       <div class="col-md-3 " style="width:250px" v-for="n in infoPokemon" v-bind:key="n.posicio">
-        <carta ref="cartaIndividual" :pokemon="n"></carta>
+        <carta :id="'pokemonId_'+n.id" ref="cartaIndividual" :pokemon ="{ n }"></carta>
       </div>
       </div>
     </div>
@@ -68,10 +68,10 @@
       return {
         cerca: "",
         numPokemon: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        arrayUnic: [],
-        infoPokemon: {},
+        infoPokemon: [],
         hiHaDadesInici: false,
-        hiHaDadesCombat: false
+        hiHaDadesCombat: false,
+        pokemonExclosos: []
       }
     },
 
@@ -127,8 +127,16 @@
       },
 
       busca () {
-        console.log(this.cerca)
-        //this.$refs.cartaIndividual.buscar(this.cerca)
+        let that = this
+        that.pokemonExclosos = []
+        for (let i = 0; i < 10; i++) {
+          
+          if(!that.infoPokemon[i].name.includes(this.cerca)) {
+            that.pokemonExclosos.push(that.infoPokemon[i])
+            //delete that.infoPokemon[i]
+          }
+        }
+        console.log(that.pokemonExclosos)
       }
     },
 
