@@ -20,13 +20,13 @@
 
         <div class="row py-2">
           <div class="col-3"></div>
-          <button type="button" class="btn btn-outline-dark btn-sm col-6" data-bs-toggle="modal" data-bs-target="#detallPokemon"><b>+</b> Info</button>
+          <button type="button" class="btn btn-outline-dark btn-sm col-6" data-bs-toggle="modal" :data-bs-target="modalTarget"><b>+</b> Info</button>
         </div>
       </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="detallPokemon" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" :id="modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content text-right">
           <div class="modal-header">
@@ -81,7 +81,9 @@
 
       data: () => {
         return {
-            nom: ""
+          nom: "",
+          modalId: "",
+          modalTarget: ""         
         }
       },
 
@@ -90,13 +92,12 @@
       },
 
       mounted () {
-
+        this.modalId = `modal-${this.pokemon.id}`;
+        this.modalTarget = `modal-${this.pokemon.id}`
       },
 
       methods: {
-        buscar(info) {
-          console.log(info)          
-        }
+
       }
 
   }
