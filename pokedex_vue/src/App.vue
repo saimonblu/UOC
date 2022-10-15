@@ -66,10 +66,6 @@
                 <h2>Defensa <b>{{ defensor.defensa }}</b></h2>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </div>

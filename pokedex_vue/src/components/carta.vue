@@ -62,7 +62,7 @@
                 <div class="col-4"><small>{{ pokemon.amplada }}</small></div>                
               </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -92,8 +92,8 @@
       },
 
       mounted () {
-        this.modalId = `modal-${this.pokemon.id}`;
-        this.modalTarget = `modal-${this.pokemon.id}`
+        this.modalId = `modal-${this.pokemon.id}`
+        this.modalTarget = `#modal-${this.pokemon.id}`
       },
 
       methods: {
