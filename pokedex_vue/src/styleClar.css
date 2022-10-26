@@ -1,0 +1,116 @@
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    transition: background 0.3s ease-in-out;
+    background-color: #f8f9fa;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 19px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggler {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #15202B;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.toggler:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 2px;
+    bottom: 2px;
+    background: #FFF;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked+.toggler {
+    background: #8dbae7;
+}
+
+input:focus+toggler {
+    box-shadow: 0 0 3px #f8f9fa;
+}
+
+input:checked+.toggler:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(16px);
+}
+
+.toggler.round {
+    border-radius: 34px;
+}
+
+.toggler.round:before {
+    border-radius: 50%;
+}
+
+.dark header nav .nav-link:hover {
+    background: #101520;
+}
+
+.dark header {
+    background: #15202B;
+}
+
+.dark {
+    background: #000;
+    color: #fff;
+}
+
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 250px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.flip-card-back {
+    /*background-color: transparent;*/
+    color: white;
+    transform: rotateY(180deg);
+    margin-top: -265px;
+}
