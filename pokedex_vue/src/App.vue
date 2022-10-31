@@ -16,7 +16,7 @@
           </ul>
           <div class="row">
             <form class="d-flex col-11">
-              <input class="form-control" type="search" placeholder="Buscar" v-model="cerca" @input="busca()" aria-label="Search">
+              <input class="form-control" type="search" placeholder="Buscar" v-model="cerca" @input="filtratCerca()" aria-label="Search">
             </form>
           </div>
           <div class="toggle-wrapper col-1 pt-1">
@@ -283,6 +283,7 @@
       toggle() {
         if (this.modestyle === "dark") {
           this.modestyle = "light"
+          
           import("./styleClar.css")
         } else {
           this.modestyle = "dark"
@@ -292,30 +293,17 @@
     },
 
     computed: {
-      /*filtratCerca: computed( () => {
-          return this.infoPokemon.value.filter((p)=> {
-            console.log(p)
-            return p.name.includes(this.cerca)
-          })
-        }
-      ),*/
-      filtratCerca: {
-        get() {
-          return this.infoPokemon
-        },
-        // setter
-        set(newValue) {
-          // Note: we are using destructuring assignment syntax here.
-          [this.infoPokemon] = newValue.split(' ')
-        }
-      },
-      
+      filtratCerca() {
+        return this.infoPokemon.filter( n => {
+          return !this.cerca ||  n.name.toLowerCase().indexOf(this.cerca.toLowerCase()) > -1
+        })
+      },      
     }
 
   }
 
 </script>
 
-<style>
+<style scoped>
   @import './styleClar.css';
 </style>

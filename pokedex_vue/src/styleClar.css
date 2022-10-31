@@ -7,6 +7,49 @@
     background-color: #f8f9fa;
 }
 
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show>.nav-link {
+    color: #343a40;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #343a40;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: white;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    color: #343a40;
+}
+
+.btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+}
+
+.modal-content {
+    background-color: white;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+
 .toggle {
     position: relative;
     display: inline-block;
@@ -45,7 +88,7 @@
 }
 
 input:checked+.toggler {
-    background: #8dbae7;
+    background: #a7adb4;
 }
 
 input:focus+toggler {
